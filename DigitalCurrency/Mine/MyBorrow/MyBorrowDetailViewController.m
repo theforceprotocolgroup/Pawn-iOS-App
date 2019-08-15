@@ -355,7 +355,7 @@
     NSDictionary * dic;
     dic = @{@"orderID":self.orderID};
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(@"").paramaters(dic).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code==1000) {
             self.model = [MyBorrowDetailModel modelWithJSON:result.data];
@@ -465,7 +465,7 @@
     NSDictionary * dic;
     dic = @{@"orderID":self.orderID,@"userID":[UserManager manager].userid};
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(@"").paramaters(dic).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code==1000)
         {
@@ -499,7 +499,7 @@
             }];
             popView.type = ResultTypeNoEnough;
             popView.status = @"余额不足";
-            popView.content = result.data[@"tokenBalanceInfo"];
+            popView.content = result.data[@""];
             popView.btnArr = @[@"取消",@"去充值"];
             [popView show];
         }
@@ -515,7 +515,7 @@
     NSDictionary * dic;
     dic = @{@"orderID":self.orderID,@"code":self.coverCode};
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(@"").paramaters(dic).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code==1000) {
             [self.coverValidCode dismiss];
@@ -535,7 +535,7 @@
     NSDictionary * dic = @{
                            @"orderID":self.orderID,
                            };
-    [[KKRequest jsonRequest].urlString(@"").paramaters(dic).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code == 1000) {
             if (!self.validCode) {
@@ -566,7 +566,7 @@
             }];
             popView.type = ResultTypeNoEnough;
             popView.status = @"余额不足";
-            popView.content = result.data[@"tokenBalanceInfo"];
+            popView.content = result.data[@""];
             popView.btnArr = @[@"取消",@"去充值"];
             [popView show];
         }
@@ -582,7 +582,7 @@
     NSDictionary * dic;
     dic = @{@"orderID":self.orderID,@"code":self.code,@"phoneNumber":[UserManager manager].username};
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(@"").paramaters(dic).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code==1000) {
             [self.validCode dismiss];
@@ -601,7 +601,7 @@
     NSDictionary * dic;
     dic = @{@"orderID":self.orderID};
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(@"").paramaters(dic).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code==1000) {
             [self.view kk_makeToast:result.message];

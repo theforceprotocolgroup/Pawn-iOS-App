@@ -161,11 +161,11 @@
 -(void)requestData
 {
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(@"").paramaters(@{@"noticeID":self.noticeID}).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code==1000) {
-            self.titleLabel.text = result.data[@"noticeTitle"];
-            self.textView.text = result.data[@"noticeContent"];
+            self.titleLabel.text = result.data[@""];
+            self.textView.text = result.data[@""];
         }else
         {
             [self.view kk_makeToast:result.message];
@@ -186,8 +186,8 @@
         };
     
     
-    self.titleLabel.text = data[@"title"];
-    self.textView.text = data[@"content"];
+    self.titleLabel.text = data[@""];
+    self.textView.text = data[@""];
 }
 
 

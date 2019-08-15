@@ -456,11 +456,11 @@
 -(void)clickActionButton
 {
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(@"").paramaters(@{@"phoneNumber":self.acountTextField.text,@"password":self.codeTextField.text.kkMd5}).view(self.view).needCustomFormat(YES).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code == 1000) {
-            NSDictionary * dic = @{@"userId":result.data[@"uid"] ? result.data[@"uid"] : @"",
-                                   @"md_access_token": result.data[@"token"] ?result.data[@"token"] :@"",
+            NSDictionary * dic = @{@"userId":result.data[@""] : @"",
+                                   @"md_access_token": result.data[@""] :@"",
                                    @"mobile":self.acountTextField.text,
                                    };
             [UserManager saveUserInfo:dic];

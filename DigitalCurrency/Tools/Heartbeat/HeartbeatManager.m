@@ -40,7 +40,7 @@
 
 +(void)requestHeartbeat
 {
-//    [[KKRequest jsonRequest].paramaters(nil).urlString(@"").needCustomFormat(YES).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+//    [[KKRequest jsonRequest].paramaters() {
 //        if (t.result) {
 //            NSLog(@"heartbeat! success!");
 //        }else

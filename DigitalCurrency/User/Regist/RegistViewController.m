@@ -541,10 +541,10 @@
 -(void)reuqestCode
 {
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(self.isReset ? @"user/reset/getCode": @"user/getRegisterCode").paramaters(@{@"phoneNumber":self.acountTextField.text}).view(self.view).needCustomFormat(YES).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(self.isReset ? @"user/reset/getCode": @"user/getRegisterCode").paramaters() {
         @strongify(self);
         if (result.code == 1000) {
-            self.md5Code = result.data[@"encryptedCode"];
+            self.md5Code = result.data[@""];
             self.timerLabel.timeFormat = @"重发(ss's')";
             self.timerLabel.textColor = KKHexColor(A6A6AB);
             [self.timerLabel setCountDownTime:60];
@@ -560,7 +560,7 @@
 -(void)requestCheckCode
 {
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(self.isReset ? @"user/reset/validateCode":@"user/validateCode").paramaters(@{@"phoneNumber":self.acountTextField.text,@"code":self.codeTextField.text}).view(self.view).needCustomFormat(YES).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(self.isReset ? @"user/reset/validateCode":@"user/validateCode").paramaters() {
         @strongify(self);
         if (result.code == 1000) {
             [[KKRouter pushUri:@"SetPasswordViewController" params:RACTuplePack([NSNumber numberWithBool:self.isReset],self.acountTextField.text)]continueWithBlock:^id _Nullable(BFTask * _Nonnull t) {
@@ -577,7 +577,7 @@
 -(void)requestProtocol
 {
     @weakify(self);
-    [[KKRequest jsonRequest].paramaters(nil).urlString(@"").needCustomFormat(YES).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].paramaters() {
         @strongify(self);
         if (result.code == 1000) {
             self.protocolArr = [result arrWithClass:@"ProtocolModel"];

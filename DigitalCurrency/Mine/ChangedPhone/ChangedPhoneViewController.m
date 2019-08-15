@@ -326,14 +326,14 @@
     {
         dic = @{@"phoneNumber":self.acountTextField.text};
     }
-    [[KKRequest jsonRequest].urlString(self.isNewBind ? @"user/getCodeForNewPhone" : @"user/getChangePhoneNumberCode").paramaters(dic).view(self.view).needCustomFormat(YES).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(self.isNewBind ? @"user/getCodeForNewPhone" : @"user/getChangePhoneNumberCode").paramaters() {
         @strongify(self);
         if (result.code == 1000) {
             self.countLabel.timeFormat = @"重发(ss's')";
             self.countLabel.textColor = KKHexColor(A6A6AB);
             [self.countLabel setCountDownTime:60];
             [self.countLabel start];
-            self.Md5Code = result.data[@"encryptedCode"];
+            self.Md5Code = result.data[@""];
         }else
         {
             [self.view kk_makeToast:result.message];
@@ -352,7 +352,7 @@
         dic = @{@"phoneNumber":self.acountTextField.text,@"code":self.codeTextField.text};
     }
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(self.isNewBind ? @"user/confirmChangePhone" : @"user/nextChangePhone").paramaters(dic).view(self.view).needCustomFormat(YES).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(self.isNewBind ? @"user/confirmChangePhone" : @"user/nextChangePhone").paramaters() {
         @strongify(self);
         if (result.code == 1000) {
             if (self.isNewBind) {

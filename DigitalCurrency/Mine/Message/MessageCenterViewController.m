@@ -222,7 +222,7 @@
 {
     @weakify(self);
     self.dataSet.isLoading = YES;
-    [[KKRequest jsonRequest].urlString(@"").paramaters(@{@"pageNum":@(_pageNum)}).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code==1000) {
             if (self.pageNum == 1) {

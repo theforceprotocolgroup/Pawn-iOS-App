@@ -522,16 +522,16 @@
                            @"uuid":[UserManager manager].userid,
                            };
     @weakify(self);
-    [[KKRequest request].urlString(@"").paramaters(dic).formData(^(id<AFMultipartFormData> formData) {
+    [[KKRequest request].urlString(@"").paramaters() {
         [formData appendPartWithFileData:frontdata name:@"front" fileName:@"image.jpeg" mimeType:@"image/jpeg"];
         [formData appendPartWithFileData:backdata name:@"back" fileName:@"image.jpeg" mimeType:@"image/jpeg"];
         [formData appendPartWithFileData:backdata name:@"inhand" fileName:@"image.jpeg" mimeType:@"image/jpeg"];
     }).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
         @strongify(self);
         if (result.code==1000) {
-            self.model.IDcardBackURI = result.data[@"backUrl"];
-            self.model.IDcardFrontURI = result.data[@"frontUrl"];
-            self.model.IDcardInHandURI = result.data[@"inhandUrl"];
+            self.model.IDcardBackURI = result.data[@""];
+            self.model.IDcardFrontURI = result.data[@""];
+            self.model.IDcardInHandURI = result.data[@""];
             [self requestSubmit];
         }else
         {
@@ -551,7 +551,7 @@
 //                           @"inhandUrl":self.model.IDcardFrontURI.length ? self.model.IDcardInHandURI : @""
                            };
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(@"").paramaters(dic).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code==1000) {
             [self.view kk_makeToast:result.message];
@@ -568,7 +568,7 @@
 -(void)requestData
 {
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(@"").paramaters(nil).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code==1000) {
             self.model = [IndentifyModel modelWithJSON:result.data];

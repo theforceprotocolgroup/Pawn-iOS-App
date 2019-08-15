@@ -406,7 +406,7 @@
                            @"mrgeTokenID":self.requestModel.mrgeType,
                            @"interval":self.requestModel.interval,
                            };
-    [[KKRequest jsonRequest].urlString(@"").paramaters(dic).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code == 1000) {
             self.infoModel = [BorrowInfoModel modelWithJSON:result.data];
@@ -430,10 +430,10 @@
                            @"interval":self.requestModel.interval,
                            @"mrgeCount":self.infoModel.mrgeInfo.needMrgeCount,
                            };
-    [[KKRequest jsonRequest].urlString(@"").paramaters(dic).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code == 1000) {
-            self.orderID = result.data[@"orderID"];
+            self.orderID = result.data[@""];
             if (!self.validCode) {
                 self.validCode = [PopValidCode showWithTitle:@"确认借币" superView:nil action:^(RACTuple*  _Nullable x) {
                     if ([x.first isEqualToString:@"code"]) {
@@ -462,7 +462,7 @@
             }];
             popView.type = ResultTypeNoEnough;
             popView.status = @"余额不足";
-            popView.content = result.data[@"tokenBalanceInfo"];
+            popView.content = result.data[@""];
             popView.btnArr = @[@"重新申请",@"去充值"];
             [popView show];
         }
@@ -478,7 +478,7 @@
     NSDictionary * dic;
     dic = @{@"orderID":self.orderID,@"code":self.code};
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(@"").paramaters(dic).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code==1000) {
             [self.validCode dismiss];

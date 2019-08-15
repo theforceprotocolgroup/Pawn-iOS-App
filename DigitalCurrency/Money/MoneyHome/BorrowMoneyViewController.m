@@ -271,10 +271,10 @@
 -(void)clickedCallBtn
 {
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(@"").paramaters(nil).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code == 1000) {
-            NSString *phoneString = [NSString stringWithFormat:@"tel://%@", result.data[@"servicePhoneNumber"]];
+            NSString *phoneString = [NSString stringWithFormat:@"tel://%@", result.data[@""];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneString]];
         }else
         {

@@ -416,12 +416,12 @@
 -(void)requestSetPassword
 {
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(self.isReset ? @"user/reset/setPassword": @"user/register").paramaters(@{@"phoneNumber":self.phone,@"password":self.codeTextField.text.kkMd5}).view(self.view).needCustomFormat(YES).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(self.isReset ? @"user/reset/setPassword": @"user/register").paramaters() {
         @strongify(self);
         if (result.code == 1000) {
             if (!self.isReset) {
-                NSDictionary * dic = @{@"userId":result.data[@"uid"] ? result.data[@"uid"] : @"",
-                                       @"md_access_token": result.data[@"token"] ?result.data[@"token"] :@"",
+                NSDictionary * dic = @{@"userId":result.data[@""] : @"",
+                                       @"md_access_token": result.data[@""] :@"",
                                        @"mobile":self.phone,
                                        };
                 [UserManager saveUserInfo:dic];
@@ -442,7 +442,7 @@
 -(void)requestProtocol
 {
     @weakify(self);
-    [[KKRequest jsonRequest].paramaters(nil).urlString(@"").needCustomFormat(YES).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].paramaters() {
         @strongify(self);
         if (result.code == 1000) {
             self.protocolArr = [result arrWithClass:@"ProtocolModel"];

@@ -311,10 +311,10 @@
 -(void)requestData
 {
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(@"").paramaters(@{@"pageNum":@(_pageNum)}).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code == 1000) {
-            NSArray * banner = result.data[@"banner"];
+            NSArray * banner = result.data[@""];
             [self.bannerDataArr removeAllObjects];
             [banner enumerateObjectsUsingBlock:^(NSDictionary *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 BannerModel * model = [BannerModel modelWithDictionary:obj];
@@ -323,7 +323,7 @@
             if (self.pageNum == 1) {
                 [self.dataArr removeAllObjects];
             }
-            NSArray * list = result.data[@"list"];
+            NSArray * list = result.data[@""];
             NSMutableArray * tempArr = [NSMutableArray array];
             [list enumerateObjectsUsingBlock:^(NSDictionary *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 LoanHomePageModel * model = [LoanHomePageModel modelWithDictionary:obj];

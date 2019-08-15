@@ -300,7 +300,7 @@
 -(void)requestData
 {
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(@"").paramaters(@{@"orderID":self.orderID}).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code == 1000) {
             self.model = [LoanConfirmModel modelWithJSON:result.data];
@@ -348,7 +348,7 @@
     NSDictionary * dic = @{
                            @"orderID":self.orderID,
                            };
-    [[KKRequest jsonRequest].urlString(@"").paramaters(dic).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code == 1000) {
             if (!self.validCode) {
@@ -379,7 +379,7 @@
             }];
             popView.type = ResultTypeNoEnough;
             popView.status = @"余额不足";
-            popView.content = result.data[@"tokenBalanceInfo"];
+            popView.content = result.data[@""];
             popView.btnArr = @[@"重新申请",@"去充值"];
             [popView show];
         }
@@ -395,7 +395,7 @@
     NSDictionary * dic;
     dic = @{@"orderID":self.orderID,@"code":self.code};
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(@"").paramaters(dic).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code==1000) {
             [self.validCode dismiss];
@@ -412,10 +412,10 @@
 -(void)requestRecharged
 {
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(@"").paramaters(@{@"tokenID":self.model.paymentInfo.tokenType}).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code == 1000) {
-            [[RechargePopView showWithSurperView:self.navigationController.view withModel:RACTuplePack(result.data[@"symbol"],result.data[@"address"]) withAction:^(id  _Nullable x) {
+            [[RechargePopView showWithSurperView:self.navigationController.view withModel:RACTuplePack(result.data[@""]) withAction:^(id  _Nullable x) {
                 
             }]show];
         }else

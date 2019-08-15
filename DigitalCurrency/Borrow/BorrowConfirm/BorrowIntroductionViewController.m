@@ -226,16 +226,16 @@
 -(void)requestData
 {
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(@"").paramaters(nil).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code == 1000) {
-            NSArray * arr = result.data[@"processIntroduction"];
+            NSArray * arr = result.data[@""];
             [arr enumerateObjectsUsingBlock:^(NSArray *  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 NSDictionary * dic = @{@"title":obj,@"icon":[self iconArr][idx]};
                 [self.progressArr addObject:dic];
             }];
-            self.rate = result.data[@"rateIntroduction"][@"content"];
-            self.rulesArr = result.data[@"exchangeRules"];
+            self.rate = result.data[@""];
+            self.rulesArr = result.data[@""];
             [self reloadData];
         }else
         {

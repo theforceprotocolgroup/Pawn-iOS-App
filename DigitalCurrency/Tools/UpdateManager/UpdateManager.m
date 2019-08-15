@@ -72,7 +72,7 @@
                            @"version" : [NSString stringWithFormat:@"%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]],
                            };
     @weakify(self);
-    [[KKRequest jsonRequest].paramaters(dic).urlString(@"").needCustomFormat(YES).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].paramaters() {
         @strongify(self);
         if (t.result) {
             self.checkUpdateSuccess = YES;

@@ -485,7 +485,7 @@
 //    }
    
 //    @weakify(self);
-//    [[KKRequest jsonRequest].urlString(@"").paramaters(@{@"noticeID":@"notice140"}).needCustomFormat(YES).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+//    [[KKRequest jsonRequest].urlString(@"").paramaters() {
 //        @strongify(self);
 //        if (result.code == 1000) {
 //
@@ -589,12 +589,12 @@
 -(void)requestData
 {
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(@"").paramaters(nil).needCustomFormat(YES).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code == 1000) {
-            self.viewModel.rateArr = result.data[@"rate"];
-            self.viewModel.intervalArr = result.data[@"interval"];
-            NSArray * tempArr = result.data[@"protocol"];
+            self.viewModel.rateArr = result.data[@""];
+            self.viewModel.intervalArr = result.data[@""];
+            NSArray * tempArr = result.data[@""];
             if (tempArr.count) {
                 [self.borrowProtocols removeAllObjects];
                 [tempArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -622,7 +622,7 @@
                            @"mrgeTokenID":self.requestModel.mrgeType,
                            @"interval":self.requestModel.interval,
                            };
-    [[KKRequest jsonRequest].urlString(@"").paramaters(dic).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code == 1000) {
             [KKRouter pushUri:@"BorrowConfirmViewController" params:RACTuplePack(self.viewModel,result.data,self.requestModel,self.borrowModel,self.mrgeModel)];

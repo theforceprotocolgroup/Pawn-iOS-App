@@ -322,7 +322,7 @@
     }
     dic = @{@"tokenID":tokenID, @"inputCount":_count};
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(@"").paramaters(dic).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code==1000) {
             self.model = [WithdrawModel modelWithJSON:result.data];
@@ -353,10 +353,10 @@
     }
     dic = @{@"tokenID":tokenID , @"withdrawAddress":self.address ,@"withdrawCount":_count};
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(@"").paramaters(dic).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code==1000) {
-            self.withdrawOrderID = result.data[@"withdrawOrderID"];
+            self.withdrawOrderID = result.data[@""];
             if (!self.validCode) {
                 self.validCode = [PopValidCode showWithTitle:@"确认提现" superView:nil action:^(RACTuple*  _Nullable x) {
                     if ([x.first isEqualToString:@"code"]) {
@@ -398,7 +398,7 @@
     }
     dic = @{@"tokenID":tokenID,@"code":self.code,@"withdrawOrderID":self.withdrawOrderID,@"withdrawAddress":self.address ,@"withdrawCount":_count};
     @weakify(self);
-    [[KKRequest jsonRequest].urlString(@"").paramaters(dic).needCustomFormat(YES).view(self.view).kkTask kkContinueBlock:^id _Nullable(BFTask * _Nonnull t, JSONModel * _Nonnull result) {
+    [[KKRequest jsonRequest].urlString(@"").paramaters() {
         @strongify(self);
         if (result.code == 1000) {
             [self.validCode dismiss];
@@ -412,8 +412,8 @@
             }];
             pop.type = ResultTypeWithDraw;
             pop.btnArr = @[@"重新提现"];
-            pop.status = result.data[@"description"];
-            pop.content = result.data[@"tokenBalanceInfo"];
+            pop.status = result.data[@""];
+            pop.content = result.data[@""];
             [pop show];
         }else
         {

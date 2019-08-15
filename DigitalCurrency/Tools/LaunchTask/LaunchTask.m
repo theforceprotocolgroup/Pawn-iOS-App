@@ -90,11 +90,11 @@
 }
 
 - (void)loadImageRequest {
-    [[KKRequest jsonRequest].paramaters(nil).urlString(@"").needCustomFormat(YES)
+    [[KKRequest jsonRequest].paramaters()
      .kkTask kkContinueBlock:^id(BFTask *t, JSONModel *result) {
          if (t.result) {
              self.model = [InitModel modelWithJSON:result.data];
-             self.model.isLogin = [result.data[@"isLogin"] boolValue];
+             self.model.isLogin = [result.data[@""];
              if (!self.tcs.task.isCompleted) {
                  if (!self.model.isLogin) {
                      [UserManager clearLoginInfo];
